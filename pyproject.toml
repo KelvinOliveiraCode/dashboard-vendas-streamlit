@@ -1,0 +1,21 @@
+[project]
+name = "dashboard-vendas-streamlit"
+version = "0.1.0"
+description = "Dashboard interativo de vendas com Streamlit + Plotly"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "streamlit>=1.40",
+    "plotly>=5.0",
+    "pandas>=2.0",
+]
+
+[project.scripts]
+dashboard-vendas = "dashboard_vendas.app:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
