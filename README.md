@@ -1,59 +1,83 @@
-# Dashboard de Vendas / Sales Dashboard
+# dashboard-vendas-streamlit
 
-Dashboard interativo de vendas com Streamlit + Plotly. Visualiza vendas por produto, região e tempo, com filtros de produto, região e período.
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)   ![status: concluido](https://img.shields.io/badge/status-concluido-green)   ![licenca: MIT](https://img.shields.io/badge/licenca-MIT-blue)
 
-Interactive sales dashboard with Streamlit + Plotly. Visualizes sales by product, region, and time, with product, region, and period filters.
+## Resumo
 
-## Stack / Stack
+Projeto em Python desenvolvido como estudo de engenharia de software. Projeto funcional, dashboard-vendas-streamlit
 
-Python, Streamlit, Plotly, pandas.
+## Problema / por que existe
 
-## Como usar / How to use
+O projeto aborda um recorte pratico e automatiza uma tarefa que, feita manualmente, e repetitiva e propensa a erro. O foco esta em transformar dados ou processos em saida confiavel, com codigo legivel e testavel.
 
-Instale as dependências:
+## Arquitetura
 
-Install dependencies:
+O codigo esta organizado por responsabilidade:
 
-```bash
-pip install streamlit plotly pandas
+- Entrada: leitura de arquivo, API, entrada do usuario ou captura de dados (dependendo do modulo).
+- Processamento: funcoes puras ou classes que aplicam regras de negocio, transformacao ou analise sobre os dados de entrada.
+- Saida: gravacao de arquivo, impressao em terminal, resposta HTTP ou geracao de relatorio.
+
+Quando aplicavel, a aplicacao separa a camada de acesso a dados da camada de logica de negocio, para que mudar a origem dos dados nao exija reescrever as regras.
+
+## Tecnologias
+
+- Python 3.x
+- (nenhum informado no repositorio)
+
+- Sem CI configurado neste repositorio.
+
+O repositorio contem testes automatizados.
+
+## O que faz
+
+Projeto funcional, dashboard-vendas-streamlit
+
+## Como rodar
+
+Requisitos: Python 3.x instalado.
+
+```
+# instalar dependencias (se houver requirements.txt)
+pip install -r requirements.txt
+
+# executar
+python main.py
+
+# executar testes
+pytest
 ```
 
-Rode o dashboard:
+## Estrutura do projeto
 
-Run the dashboard:
+- src/ (4 arquivo(s))
+- tests/ (1 arquivo(s))
+- .gitignore, app.py, BRIEF.md, conftest.py, pyproject.toml, README.en.md, README.md
 
-```bash
-streamlit run app.py
+
+## Trade-offs e decisões
+
+- Biblioteca padrao sempre que possivel, dependencias externas so quando o ganho justifica a manutencao.
+- Scripts executaveis direto, sem build step complexo, para facilitar a reproducao.
+- Logica separada de entrada/saida para manter as funcoes de processamento testaveis.
+
+## Limitações conhecidas
+
+- Escopo limitado ao recorte descrito; nao e uma plataforma completa.
+- Depende de Python 3.x no ambiente de execucao.
+
+
+## Testes
+
+```
+pytest
 ```
 
-## Testes / Tests
+## Licença
 
-Rode a suíte de testes:
+Distribuído sob a licenca MIT. Consulte o arquivo `LICENSE` do repositorio.
 
-Run the test suite:
+## Autor
 
-```bash
-python -m pytest -q
-```
-
-Os testes geram um DataFrame de vendas e verificam as agregações por produto, região e tempo.
-
-Tests generate a sales DataFrame and verify aggregations by product, region, and time.
-
-## Estrutura / Structure
-
-- `app.py` — ponto de entrada do dashboard (Streamlit)
-- `src/dashboard_vendas/` — geração de dados, agregações e gráficos
-- `tests/` — testes pytest
-
-- `app.py` — dashboard entry point (Streamlit)
-- `src/dashboard_vendas/` — data generation, aggregations, charts
-- `tests/` — pytest tests
-
-## Licença / License
-
-MIT
-
-## Autor / Author
-
-Kelvin Oliveira
+Kelvin Oliveira, https://github.com/KelvinOliveiraCode
+Portfolio: https://kelvinoliveiracode.github.io/portfolio/
