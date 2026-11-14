@@ -1,123 +1,92 @@
 # dashboard-vendas-streamlit
 
-<div align="center">
-
 [English](README.en.md) · **Português (Brasil)**
 
-</div>
-
-[![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn)](https://scikit-learn.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
-
-### Projeto funcional ,  dashboard-vendas-streamlit
-
----
+[![Python 3](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](#) [![Streamlit](https://img.shields.io/badge/Streamlit-1.40%2B-FF4B4B?style=flat-square&logo=streamlit)](#) [![Plotly](https://img.shields.io/badge/Plotly-5-3F4F75?style=flat-square&logo=plotly)](#) [![pandas](https://img.shields.io/badge/pandas-2.0%2B-150458?style=flat-square&logo=pandas)](#) [![pytest](https://img.shields.io/badge/pytest-12%20testes-0A9EDC?style=flat-square&logo=pytest)](#) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
 
 ## O que é
 
-Projeto funcional ,  dashboard-vendas-streamlit
+**Dashboard de vendas em Streamlit**: gera um dataset de vendas **sintético e determinístico** (seed 42), agrega por **produto**, **região** e **tempo**, e exibe gráficos **Plotly** num app **Streamlit**. É um laboratório educacional de visualização de dados.
 
----
+## Status
 
-## Início Rápido
+Laboratório educacional funcional e testado (12 testes — agregações e gráficos).
 
-```bash
-# Clone e entre
-git clone https://github.com/KelvinOliveiraCode/<repo>.git
-cd <repo>
+## Funcionalidades
 
-# Instale dependências
-# Nenhum requirements.txt detectado
+- **Dados** (`data.py`): `gerar_dados_vendas(seed=42, num_vendas=...)` — dataset sintético determinístico.
+- **Agregações** (`agregacoes.py`): `agregar_por_produto`, `agregar_por_regiao`, `agregar_por_tempo`.
+- **Gráficos** (`charts.py`): `fig_vendas_por_produto/regiao/tempo` — figuras Plotly prontas para o app.
+- **App** (`app.py`): monta o dashboard Streamlit com os três gráficos.
 
-# Execute o projeto
-python main.py
+## Arquitetura
 
-# Execute os testes
-pytest
+Pacote `dashboard_vendas` com camadas puras (`agregacoes`, `charts`, `data`) testáveis, e o `app.py` do Streamlit consumindo tudo.
+
+```mermaid
+flowchart LR
+    GEN[gerar_dados_vendas seed=42] --> DF[DataFrame]
+    DF --> AG[agregacoes - produto/regiao/tempo]
+    AG --> CH[charts - figuras Plotly]
+    CH --> APP[app.py - Streamlit]
 ```
 
-## Como funciona
+## Stack
 
-O projeto é organizado como um **pipeline modular** com etapas independentes:
+- Python ≥ 3.10
+- Streamlit ≥ 1.40, Plotly ≥ 5.0, pandas ≥ 2.0
+- pytest (dev)
 
-- `app`
-- `conftest`
+## Estrutura do repositório
 
-Cada módulo tem responsabilidade única e pode ser testado ou substituído independentemente.
+```
+dashboard-vendas-streamlit/
+├── pyproject.toml · BRIEF.md
+├── src/dashboard_vendas/
+│   ├── data.py        # dataset sintético (seed)
+│   ├── agregacoes.py  # produto/região/tempo
+│   └── charts.py      # figuras Plotly
+├── app.py             # app Streamlit
+├── tests/             # 12 testes
+└── LICENSE            # MIT
+```
 
----
+## Pré-requisitos e instalação
 
-## Capacidades
+```bash
+pip install -e .
+```
 
-| Capacidade | Descrição |
-|------------|-------------|
-| Carregamento de Dados | Auto-download do TensorFlow creditcard.csv (284k transações) com cache local |
-| EDA e Visualização | Distribuição de classes, histogramas de Amount, heatmaps de correlação (matplotlib/seaborn) |
-| Pré-processamento | RobustScaler em Amount/Time, split estratificado, remoção de duplicatas |
-| Balanceamento | SMOTE oversampling (fallback: class_weight="balanced") |
-| Modelagem | LogisticRegression, RandomForest, ExtraTrees com RandomizedSearchCV (StratifiedKFold) |
-| Métricas | Accuracy, Precision, Recall, F1, ROC AUC, Specificity, Confusion Matrix |
-| Seleção | Score ponderado: Recall 40% + F1 30% + Precision 20% + Accuracy 10% |
-| Persistência | Serialização joblib para modelo, scaler e resultados completos |
+## Como executar
 
+```bash
+streamlit run app.py
+# abre o dashboard no navegador
+```
 
----
+## Testes e qualidade
 
+Comando real (verificado pelo agente):
 
+```bash
+PYTHONPATH=src python -m pytest tests/
+# 12 passed
+```
 
----
+## Decisões técnicas e trade-offs
 
-## Perguntas Frequentes
+- **Agregações e gráficos como funções puras**: testáveis sem abrir o app; o Streamlit só faz a camada de apresentação.
+- **Dataset sintético com seed**: demos reprodutíveis sem dados reais.
 
-<details>
-<summary><strong>O que é este projeto?</strong></summary>
+## Limitações conhecidas e roadmap
 
-Um estudo/projeto em Python demonstrando pandas.
+- Sem conexão com fonte real de vendas (CSV/banco) — só dados gerados.
+- Dashboard de leitura: sem filtros avançados ou drill-down.
 
-</details>
+## Processo de desenvolvimento
 
-<details>
-<summary><strong>Como executar?</strong></summary>
+Projeto individual de Kelvin Oliveira, construído com agentes de IA orquestrados e revisado pelo autor.
 
-Veja [Início Rápido](#início-rápido) para comandos copiáveis.
+## Licença e autor
 
-</details>
-
-<details>
-<summary><strong>Há testes?</strong></summary>
-
-Nenhum teste automatizado neste repositório.
-
-</details>
-
-<details>
-<summary><strong>Posso usar em produção?</strong></summary>
-
-Este é um **projeto de estudo/portfólio**. Revise e endureça (auth, persistência, monitoramento, etc.) antes de usar em produção.
-
-</details>
-
-
-
----
-
-## Documentação
-
-- **Código-Fonte** ,  Navegue pelo diretório `src/` para detalhes de implementação
-- **Referência da API** ,  Docstrings inline + type hints
-- **Diagrama de Arquitetura** ,  Veja [architecture.mermaid](docs/architecture.mermaid) (se presente)
-- **Changelog** ,  [CHANGELOG.md](CHANGELOG.md) (se presente)
-- **Contribuindo** ,  [CONTRIBUTING.md](CONTRIBUTING.md) (se presente)
-
-## Licença
-
-[MIT](LICENSE) ,  Kelvin Oliveira
-
----
-
-<div align="center">
-
-**Construído com** · Python 3 + scikit-learn + pandas
-
-**Autor** · [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfolio](https://kelvinoliveiracode.github.io/portfolio/)
-
-</div>
+MIT — Copyright (c) 2026 Kelvin Rebelo de Oliveira. Autor: [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfólio](https://kelvinoliveiracode.github.io/portfolio/)

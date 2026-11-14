@@ -1,123 +1,92 @@
 # dashboard-vendas-streamlit
 
-<div align="center">
-
 **English** · [Português (Brasil)](README.md)
 
-</div>
-
-[![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn)](https://scikit-learn.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
-
-### Projeto funcional ,  dashboard-vendas-streamlit
-
----
+[![Python 3](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](#) [![Streamlit](https://img.shields.io/badge/Streamlit-1.40%2B-FF4B4B?style=flat-square&logo=streamlit)](#) [![Plotly](https://img.shields.io/badge/Plotly-5-3F4F75?style=flat-square&logo=plotly)](#) [![pandas](https://img.shields.io/badge/pandas-2.0%2B-150458?style=flat-square&logo=pandas)](#) [![pytest](https://img.shields.io/badge/pytest-12%20tests-0A9EDC?style=flat-square&logo=pytest)](#) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
 
 ## What it is
 
-Projeto funcional ,  dashboard-vendas-streamlit
+**A Streamlit sales dashboard**: it generates a **synthetic, deterministic** sales dataset (seed 42), aggregates by **product**, **region** and **time**, and displays **Plotly** charts in a **Streamlit** app. It is an educational data-visualisation lab.
 
----
+## Status
 
-## Quick Start
+An educational lab, working and tested (12 tests — aggregations and charts).
 
-```bash
-# Clone and enter
-git clone https://github.com/KelvinOliveiraCode/<repo>.git
-cd <repo>
+## Features
 
-# Install dependencies
-# No requirements.txt detected
+- **Data** (`data.py`): `gerar_dados_vendas(seed=42, num_vendas=...)` — a deterministic synthetic dataset.
+- **Aggregations** (`agregacoes.py`): `agregar_por_produto`, `agregar_por_regiao`, `agregar_por_tempo`.
+- **Charts** (`charts.py`): `fig_vendas_por_produto/regiao/tempo` — Plotly figures ready for the app.
+- **App** (`app.py`): assembles the Streamlit dashboard with the three charts.
 
-# Run the project
-python main.py
+## Architecture
 
-# Run tests
-pytest
+A `dashboard_vendas` package with pure layers (`agregacoes`, `charts`, `data`) that are testable, and the Streamlit `app.py` consuming them.
+
+```mermaid
+flowchart LR
+    GEN[gerar_dados_vendas seed=42] --> DF[DataFrame]
+    DF --> AG[agregations - product/region/time]
+    AG --> CH[charts - Plotly figures]
+    CH --> APP[app.py - Streamlit]
 ```
 
-## How it works
+## Stack
 
-O projeto é organizado como um **pipeline modular** com etapas independentes:
+- Python ≥ 3.10
+- Streamlit ≥ 1.40, Plotly ≥ 5.0, pandas ≥ 2.0
+- pytest (dev)
 
-- `app`
-- `conftest`
+## Repository layout
 
-Cada módulo tem responsabilidade única e pode ser testado ou substituído independentemente.
+```
+dashboard-vendas-streamlit/
+├── pyproject.toml · BRIEF.md
+├── src/dashboard_vendas/
+│   ├── data.py        # synthetic dataset (seeded)
+│   ├── agregacoes.py  # product/region/time
+│   └── charts.py      # Plotly figures
+├── app.py             # Streamlit app
+├── tests/             # 12 tests
+└── LICENSE            # MIT
+```
 
----
+## Prerequisites and installation
 
-## Capabilities
+```bash
+pip install -e .
+```
 
-| Capacidade | Descrição |
-|------------|-------------|
-| Carregamento de Dados | Auto-download do TensorFlow creditcard.csv (284k transações) com cache local |
-| EDA e Visualização | Distribuição de classes, histogramas de Amount, heatmaps de correlação (matplotlib/seaborn) |
-| Pré-processamento | RobustScaler em Amount/Time, split estratificado, remoção de duplicatas |
-| Balanceamento | SMOTE oversampling (fallback: class_weight="balanced") |
-| Modelagem | LogisticRegression, RandomForest, ExtraTrees com RandomizedSearchCV (StratifiedKFold) |
-| Métricas | Accuracy, Precision, Recall, F1, ROC AUC, Specificity, Confusion Matrix |
-| Seleção | Score ponderado: Recall 40% + F1 30% + Precision 20% + Accuracy 10% |
-| Persistência | Serialização joblib para modelo, scaler e resultados completos |
+## How to run
 
+```bash
+streamlit run app.py
+# opens the dashboard in the browser
+```
 
----
+## Tests and quality
 
+Real command (verified by the agent):
 
+```bash
+PYTHONPATH=src python -m pytest tests/
+# 12 passed
+```
 
----
+## Technical decisions and trade-offs
 
-## FAQ
+- **Aggregations and charts as pure functions**: testable without opening the app; Streamlit is only the presentation layer.
+- **Seeded synthetic dataset**: reproducible demos without real data.
 
-<details>
-<summary><strong>What is this project?</strong></summary>
+## Known limitations and roadmap
 
-A Python study/project demonstrating pandas.
+- No connection to a real sales source (CSV/database) — generated data only.
+- Read-only dashboard: no advanced filters or drill-down.
 
-</details>
+## Development process
 
-<details>
-<summary><strong>How do I run it?</strong></summary>
+An individual project by Kelvin Oliveira, built with orchestrated AI agents and reviewed by the author.
 
-See [Quick Start](#quick-start) for copy-paste commands.
+## License and author
 
-</details>
-
-<details>
-<summary><strong>Are there tests?</strong></summary>
-
-No automated tests in this repository.
-
-</details>
-
-<details>
-<summary><strong>Can I use this in production?</strong></summary>
-
-This is a **study/portfolio project**. Review and harden (auth, persistence, monitoring, etc.) before production use.
-
-</details>
-
-
-
----
-
-## Documentation
-
-- **Source Code** ,  Browse the `src/` directory for implementation details
-- **API Reference** ,  Inline docstrings + type hints
-- **Architecture Diagram** ,  See [architecture.mermaid](docs/architecture.mermaid) (if present)
-- **Changelog** ,  [CHANGELOG.md](CHANGELOG.md) (if present)
-- **Contributing** ,  [CONTRIBUTING.md](CONTRIBUTING.md) (if present)
-
-## License
-
-[MIT](LICENSE) ,  Kelvin Oliveira
-
----
-
-<div align="center">
-
-**Built with** · Python 3 + scikit-learn + pandas
-
-**Author** · [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfolio](https://kelvinoliveiracode.github.io/portfolio/)
-
-</div>
+MIT — Copyright (c) 2026 Kelvin Rebelo de Oliveira. Author: [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfolio](https://kelvinoliveiracode.github.io/portfolio/)
