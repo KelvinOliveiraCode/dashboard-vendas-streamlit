@@ -10,13 +10,13 @@
 
 ## Status
 
-Laboratório educacional funcional e testado (12 testes — agregações e gráficos).
+Laboratório educacional funcional e testado (12 testes, agregações e gráficos).
 
 ## Funcionalidades
 
-- **Dados** (`data.py`): `gerar_dados_vendas(seed=42, num_vendas=...)` — dataset sintético determinístico.
+- **Dados** (`data.py`): `gerar_dados_vendas(seed=42, num_vendas=...)`, dataset sintético determinístico.
 - **Agregações** (`agregacoes.py`): `agregar_por_produto`, `agregar_por_regiao`, `agregar_por_tempo`.
-- **Gráficos** (`charts.py`): `fig_vendas_por_produto/regiao/tempo` — figuras Plotly prontas para o app.
+- **Gráficos** (`charts.py`): `fig_vendas_por_produto/regiao/tempo`, figuras Plotly prontas para o app.
 - **App** (`app.py`): monta o dashboard Streamlit com os três gráficos.
 
 ## Arquitetura
@@ -39,7 +39,7 @@ flowchart LR
 
 ## Estrutura do repositório
 
-```
+```text
 dashboard-vendas-streamlit/
 ├── pyproject.toml · BRIEF.md
 ├── src/dashboard_vendas/
@@ -75,12 +75,12 @@ PYTHONPATH=src python -m pytest tests/
 
 ## Decisões técnicas e trade-offs
 
-- **Agregações e gráficos como funções puras**: testáveis sem abrir o app; o Streamlit só faz a camada de apresentação.
-- **Dataset sintético com seed**: demos reprodutíveis sem dados reais.
+- Agregações e gráficos como funções puras: testáveis sem abrir o app; o Streamlit só faz a camada de apresentação.
+- Dataset sintético com seed: demos reprodutíveis sem dados reais.
 
 ## Limitações conhecidas e roadmap
 
-- Sem conexão com fonte real de vendas (CSV/banco) — só dados gerados.
+- Sem conexão com fonte real de vendas (CSV/banco), só dados gerados.
 - Dashboard de leitura: sem filtros avançados ou drill-down.
 
 ## Processo de desenvolvimento
@@ -89,4 +89,4 @@ Projeto individual de Kelvin Oliveira, construído com agentes de IA orquestrado
 
 ## Licença e autor
 
-MIT — Copyright (c) 2026 Kelvin Rebelo de Oliveira. Autor: [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfólio](https://kelvinoliveiracode.github.io/portfolio/)
+MIT. Copyright (c) 2026 Kelvin Rebelo de Oliveira. Autor: [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfólio](https://kelvinoliveiracode.github.io/portfolio/)
